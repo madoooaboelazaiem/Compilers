@@ -19,6 +19,8 @@
 
 9:	s(T, [how, have, he, been], []).
 
+9:	s(T, [how, have, he, been, i, heard, the, young, boy, pushed, and, stored , a , big, box, in, the, large, empty, room, after, school], []).
+
 
 swipl -s assignment1.pl
 halt.
@@ -152,6 +154,8 @@ verb(v(yelled))-->[yelled].
 verb(v(put))-->[put].
 verb(v(worked))-->[worked].
 verb(v(happen))-->[happen].
+verb(v(hear))-->[hear].
+verb(v(heard))-->[heard].
 
 %Adjectives
 adjective(adj(bright))-->[bright].
