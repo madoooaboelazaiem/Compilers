@@ -11,11 +11,18 @@
 
 5:	s(T, [who, climbed, the, big, tree], []).
 
-5:	s(T, [what, did, the, professors, do], []).
+6:	s(T, [how, did, this, happen], []).
+
+7:	s(T, [what, did, the, professors, do], []).
+
+8:	s(T, [when, and, how, did, this, happen], []).
+
+9:	s(T, [how, have, he, been], []).
+
+
 swipl -s assignment1.pl
 halt.
 */
-
 
 /** 
 Refs 
@@ -25,10 +32,12 @@ https://en.wikipedia.org/wiki/Definite_clause_grammar
 
 
 s(s(A,B))-->simple_sentence(A),sentence(B).
+s(s(I,B))-->interrogative_sentence(I),sentence(B).
 simple_sentence(s(NOUNPHRASE,VERBPHRASE))-->noun_phrase(NOUNPHRASE),verb_phrase(VERBPHRASE).
 sentence(s(C,A,B))-->conjunction(C),simple_sentence(A),sentence(B).
 sentence(s(_))-->[].
-
+interrogative_sentence(s(INTEROPHRASE,VERBPHRASE))-->interrogative_pronoun_phrase(INTEROPHRASE),verb_phrase(VERBPHRASE).
+interrogative_sentence(s(INTEROPRON,CONJ, INTEROPHRASE))-->interPronoun(INTEROPRON),conjunction(CONJ),interrogative_pronoun_phrase(INTEROPHRASE).
 
 noun_phrase(nounPhrase(NOUN))-->noun(NOUN).
 noun_phrase(nounPhrase(DET,NOUN))-->det(DET),noun(NOUN).
@@ -51,6 +60,7 @@ noun_phrase(nounPhrase(ADJ,NOUN,CONJ,VERBPHRASE))-->adj_phrase(ADJ),noun(NOUN),c
 verb_phrase(verbPhrase(VERB))-->verb(VERB).
 verb_phrase(verbPhrase(VERB,CONJ,VERBPHRASE))-->verb(VERB),conjunction(CONJ),verb_phrase(VERBPHRASE).
 verb_phrase(verbPhrase(VERB,ADJ))-->verb(VERB),pronoun_phrase(ADJ).
+verb_phrase(verbPhrase(VERB,DET,VERBPHRASE))-->verb(VERB),det(DET),verb_phrase(VERBPHRASE).
 verb_phrase(verbPhrase(VERB,NOUNPHRASE))-->verb(VERB),noun_phrase(NOUNPHRASE).
 verb_phrase(verbPhrase(VERB,NOUNPHRASE,ADJ))-->verb(VERB),noun_phrase(NOUNPHRASE),adverb_phrase(ADJ).
 verb_phrase(verbPhrase(VERB,NOUNPHRASE,PREPPHRASE))-->verb(VERB),noun_phrase(NOUNPHRASE),preposition_phrase(PREPPHRASE).
@@ -69,6 +79,8 @@ pronoun_phrase(pronounPhrase(PRON,VERBPHRASE))-->pronoun(PRON),verb_phrase(VERBP
 pronoun_phrase(pronounPhrase(PRON))-->pronoun(PRON).
 pronoun_phrase(pronounPhrase(PRON,NOUNPHRASE))-->pronoun(PRON),noun_phrase(NOUNPHRASE).
 
+interrogative_pronoun_phrase(interPronounP(PRON))-->interPronoun(PRON).
+interrogative_pronoun_phrase(interPronounP(PRON,VERBPHRASE))--> interPronoun(PRON),verb_phrase(VERBPHRASE).
 %Nouns
 noun(n(paper))-->[paper].
 noun(n(students))-->[students].
@@ -114,18 +126,22 @@ verb(v(pushed))-->[pushed].
 verb(v(sleep))-->[sleep].
 verb(v(played))-->[played].
 verb(v(connect))-->[connect].
+verb(v(connected))-->[connected].
 verb(v(push))-->[push].
 verb(v(watched))-->[watched].
 verb(v(gave))-->[gave].
 verb(v(did))-->[did].
 verb(v(do))-->[do].
+verb(v(have))-->[have].
+verb(v(had))-->[had].
+verb(v(be))-->[be].
+verb(v(been))-->[been].
 verb(v(admired))-->[admired].
 verb(v(ran))-->[ran].
 verb(v(stored))-->[stored].
 verb(v(kill))-->[kill].
 verb(v(killed))-->[killed].
 verb(v(see))-->[see].
-verb(v(saw))-->[saw].
 verb(v(climbed))-->[climbed].
 verb(v(run))-->[run].
 verb(v(saw))-->[saw].
@@ -135,6 +151,7 @@ verb(v(yell))-->[yell].
 verb(v(yelled))-->[yelled].
 verb(v(put))-->[put].
 verb(v(worked))-->[worked].
+verb(v(happen))-->[happen].
 
 %Adjectives
 adjective(adj(bright))-->[bright].
@@ -210,9 +227,17 @@ conjunction(conj(or))-->[or].
 conjunction(conj(but))-->[but].
 
 %Pronouns
+pronoun(pron(he))-->[he].
+pronoun(pron(she))-->[she].
+pronoun(pron(it))-->[it].
 pronoun(pron(me))-->[me].
 pronoun(pron(i))-->[i].
 pronoun(pron(us))-->[us].
 pronoun(pron(we))-->[we].
 pronoun(pron(who))-->[who].
 pronoun(pron(what))-->[what].
+
+interPronoun(pron(who))-->[who].
+interPronoun(pron(what))-->[what].
+interPronoun(pron(when))-->[when].
+interPronoun(pron(how))-->[how].
