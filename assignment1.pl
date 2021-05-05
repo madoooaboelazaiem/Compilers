@@ -36,14 +36,20 @@ https://en.wikipedia.org/wiki/Definite_clause_grammar
 s(s(A,B))-->simple_sentence(A),sentence(B).
 s(s(I,B))-->interrogative_sentence(I),sentence(B).
 simple_sentence(s(NOUNPHRASE,VERBPHRASE))-->noun_phrase(NOUNPHRASE),verb_phrase(VERBPHRASE).
+simple_sentence(s(NOUNPHRASE,VERBPHRASE,END))-->noun_phrase(NOUNPHRASE),verb_phrase(VERBPHRASE),punctuation(END).
 sentence(s(C,A,B))-->conjunction(C),simple_sentence(A),sentence(B).
+sentence(s(C,A,B,END))-->conjunction(C),simple_sentence(A),sentence(B),punctuation(END).
+
 sentence(s(_))-->[].
 interrogative_sentence(s(INTEROPHRASE,VERBPHRASE))-->interrogative_pronoun_phrase(INTEROPHRASE),verb_phrase(VERBPHRASE).
 interrogative_sentence(s(INTEROPRON,CONJ, INTEROPHRASE))-->interPronoun(INTEROPRON),conjunction(CONJ),interrogative_pronoun_phrase(INTEROPHRASE).
+interrogative_sentence(s(INTEROPHRASE,VERBPHRASE,END))-->interrogative_pronoun_phrase(INTEROPHRASE),verb_phrase(VERBPHRASE),punctuation(END).
+interrogative_sentence(s(INTEROPRON,CONJ, INTEROPHRASE,END))-->interPronoun(INTEROPRON),conjunction(CONJ),interrogative_pronoun_phrase(INTEROPHRASE),punctuation(END).
 
 noun_phrase(nounPhrase(NOUN))-->noun(NOUN).
 noun_phrase(nounPhrase(DET,NOUN))-->det(DET),noun(NOUN).
 noun_phrase(nounPhrase(DET,ADJ,NOUN))-->det(DET),adj_phrase(ADJ),noun(NOUN).
+noun_phrase(nounPhrase(NOUN,CONJ,NOUNPHRASE))-->noun(NOUN),conjunction(CONJ),noun_phrase(NOUNPHRASE).
 noun_phrase(nounPhrase(DET,ADJ,NOUN,CONJ,NOUNPHRASE))-->det(DET),adj_phrase(ADJ),noun(NOUN),conjunction(CONJ),noun_phrase(NOUNPHRASE).
 noun_phrase(nounPhrase(DET,ADJ,NOUN,PRON))-->det(DET),adj_phrase(ADJ),noun(NOUN),pronoun_phrase(PRON).
 noun_phrase(nounPhrase(DET,ADJ,NOUN,PREPPHRASE))-->det(DET),adj_phrase(ADJ),noun(NOUN),preposition_phrase(PREPPHRASE).
@@ -56,8 +62,8 @@ noun_phrase(nounPhrase(DET,NOUN,PRON))-->det(DET),noun(NOUN),adverb_phrase(PRON)
 noun_phrase(nounPhrase(DET,ADJ,NOUN,NOUNPHRASE))-->det(DET),adj_phrase(ADJ),noun(NOUN),noun_phrase(NOUNPHRASE).
 noun_phrase(nounPhrase(ADJ,NOUN))-->adj_phrase(ADJ),noun(NOUN).
 noun_phrase(nounPhrase(ADJ,NOUN,CONJ,VERBPHRASE))-->adj_phrase(ADJ),noun(NOUN),conjunction(CONJ),verb_phrase(VERBPHRASE).
-noun_phrase(nounPhrase(ADJ,NOUN,CONJ,VERBPHRASE))-->adj_phrase(ADJ),noun(NOUN),conjunction(CONJ),noun_phrase(VERBPHRASE).
-
+noun_phrase(nounPhrase(ADJ,NOUN,CONJ,NOUNPHRASE))-->adj_phrase(ADJ),noun(NOUN),conjunction(CONJ),noun_phrase(NOUNPHRASE).
+noun_phrase(nounPhrase(DET,NOUN,CONJ,NOUNPHRASE))-->det(DET),noun(NOUN),conjunction(CONJ),noun_phrase(NOUNPHRASE).
 
 verb_phrase(verbPhrase(VERB))-->verb(VERB).
 verb_phrase(verbPhrase(VERB,CONJ,VERBPHRASE))-->verb(VERB),conjunction(CONJ),verb_phrase(VERBPHRASE).
@@ -69,8 +75,9 @@ verb_phrase(verbPhrase(VERB,NOUNPHRASE,PREPPHRASE))-->verb(VERB),noun_phrase(NOU
 verb_phrase(verbPhrase(VERB,PREPPHRASE))-->verb(VERB),preposition_phrase(PREPPHRASE).
 verb_phrase(verbPhrase(VERB))-->adverb_phrase(VERB).
 
-preposition_phrase(prep(DET))-->preposition(DET).
-preposition_phrase(prep(DET,NOUNPHRASE))-->preposition(DET),noun_phrase(NOUNPHRASE).
+preposition_phrase(prep(PREP))-->preposition(PREP).
+preposition_phrase(prep(PREP,NOUNPHRASE))-->preposition(PREP),noun_phrase(NOUNPHRASE).
+preposition_phrase(prep(PREP,VERBPHRASE))-->preposition(PREP),verb_phrase(VERBPHRASE).
 
 adj_phrase(adj(ADJ))-->adjective(ADJ).
 adj_phrase(adj(ADJ,ADJPHRASE))-->adjective(ADJ),adj_phrase(ADJPHRASE).
@@ -133,6 +140,8 @@ verb(v(push))-->[push].
 verb(v(watched))-->[watched].
 verb(v(gave))-->[gave].
 verb(v(did))-->[did].
+verb(v(doing))-->[doing].
+verb(v(does))-->[does].
 verb(v(do))-->[do].
 verb(v(have))-->[have].
 verb(v(had))-->[had].
@@ -156,6 +165,9 @@ verb(v(worked))-->[worked].
 verb(v(happen))-->[happen].
 verb(v(hear))-->[hear].
 verb(v(heard))-->[heard].
+verb(v(like))-->[like].
+verb(v(liked))-->[liked].
+
 
 %Adjectives
 adjective(adj(bright))-->[bright].
@@ -208,6 +220,7 @@ preposition(prep(above))-->[above].
 preposition(prep(in))-->[in].
 preposition(prep(with))-->[with].
 preposition(prep(within))-->[within].
+preposition(prep(to))-->[to].
 
 %Determiner
 det(d(these))-->[these].
@@ -245,3 +258,7 @@ interPronoun(pron(who))-->[who].
 interPronoun(pron(what))-->[what].
 interPronoun(pron(when))-->[when].
 interPronoun(pron(how))-->[how].
+
+%Punctuation
+punctuation(punc('.'))-->['.'].
+punctuation(punc('?'))-->['?'].
