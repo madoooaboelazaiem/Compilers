@@ -24,15 +24,6 @@
 
 swipl -s assignment1.pl
 halt.
-*/
-
-/** 
-Refs 
-https://www.cs.rochester.edu/u/brown/173/lectures/logic/prolog/DCGlec.html
-https://en.wikipedia.org/wiki/Definite_clause_grammar
-*/
-
-
 s(s(A,B))-->simple_sentence(A),sentence(B).
 s(s(I,B))-->interrogative_sentence(I),sentence(B).
 simple_sentence(s(NOUNPHRASE,VERBPHRASE))-->noun_phrase(NOUNPHRASE),verb_phrase(VERBPHRASE).
@@ -45,6 +36,24 @@ interrogative_sentence(s(INTEROPHRASE,VERBPHRASE))-->interrogative_pronoun_phras
 interrogative_sentence(s(INTEROPRON,CONJ, INTEROPHRASE))-->interPronoun(INTEROPRON),conjunction(CONJ),interrogative_pronoun_phrase(INTEROPHRASE).
 interrogative_sentence(s(INTEROPHRASE,VERBPHRASE,END))-->interrogative_pronoun_phrase(INTEROPHRASE),verb_phrase(VERBPHRASE),punctuation(END).
 interrogative_sentence(s(INTEROPRON,CONJ, INTEROPHRASE,END))-->interPronoun(INTEROPRON),conjunction(CONJ),interrogative_pronoun_phrase(INTEROPHRASE),punctuation(END).
+*/
+
+/** 
+Refs 
+https://www.cs.rochester.edu/u/brown/173/lectures/logic/prolog/DCGlec.html
+https://en.wikipedia.org/wiki/Definite_clause_grammar
+*/
+
+
+s(s(B))-->sentence(B).
+sentence(s(C,B))-->conjunction(C),sentence(B).
+sentence(s(C,B,END))-->conjunction(C),sentence(B),punctuation(END).
+sentence(s(NOUNPHRASE,VERBPHRASE))-->noun_phrase(NOUNPHRASE),verb_phrase(VERBPHRASE).
+sentence(s(NOUNPHRASE,VERBPHRASE,END))-->noun_phrase(NOUNPHRASE),verb_phrase(VERBPHRASE),punctuation(END).
+sentence(s(INTEROPHRASE,VERBPHRASE))-->interrogative_pronoun_phrase(INTEROPHRASE),verb_phrase(VERBPHRASE).
+sentence(s(INTEROPRON,CONJ, INTEROPHRASE))-->interPronoun(INTEROPRON),conjunction(CONJ),interrogative_pronoun_phrase(INTEROPHRASE).
+sentence(s(INTEROPHRASE,VERBPHRASE,END))-->interrogative_pronoun_phrase(INTEROPHRASE),verb_phrase(VERBPHRASE),punctuation(END).
+sentence(s(INTEROPRON,CONJ, INTEROPHRASE,END))-->interPronoun(INTEROPRON),conjunction(CONJ),interrogative_pronoun_phrase(INTEROPHRASE),punctuation(END).
 
 noun_phrase(nounPhrase(NOUN))-->noun(NOUN).
 noun_phrase(nounPhrase(DET,NOUN))-->det(DET),noun(NOUN).
@@ -90,6 +99,8 @@ pronoun_phrase(pronounPhrase(PRON,NOUNPHRASE))-->pronoun(PRON),noun_phrase(NOUNP
 
 interrogative_pronoun_phrase(interPronounP(PRON))-->interPronoun(PRON).
 interrogative_pronoun_phrase(interPronounP(PRON,VERBPHRASE))--> interPronoun(PRON),verb_phrase(VERBPHRASE).
+
+
 %Nouns
 noun(n(paper))-->[paper].
 noun(n(students))-->[students].
@@ -108,6 +119,7 @@ noun(n(lecturers))-->[lecturers].
 noun(n(building))-->[building].
 noun(n(box))-->[box].
 noun(n(professors))-->[professors].
+noun(n(lawyers))-->[lawyers].
 noun(n(area))-->[area].
 noun(n(plant))-->[plant].
 noun(n(school))-->[school].
@@ -119,6 +131,25 @@ noun(n(number))-->[number].
 noun(n(shed))-->[shed].
 noun(n(theatre))-->[theatre].
 noun(n(envelope))-->[envelope].
+noun(n(year))-->[year].
+noun(n(person))-->[person].
+noun(n(time))-->[time].
+noun(n(way))-->[way].
+noun(n(day))-->[day].
+noun(n(thing))-->[thing].
+noun(n(world))-->[world].
+noun(n(life))-->[life].
+noun(n(hand))-->[hand].
+noun(n(part))-->[part].
+noun(n(child))-->[child].
+noun(n(eye))-->[eye].
+noun(n(child))-->[child].
+noun(n(place))-->[place].
+noun(n(work))-->[work].
+noun(n(week))-->[week].
+noun(n(case))-->[case].
+noun(n(government))-->[government].
+
 
 
 %Verbs
@@ -195,6 +226,17 @@ adjective(adj(talented))-->[talented].
 adjective(adj(calm))-->[calm].
 adjective(adj(big))-->[big].
 adjective(adj(white))-->[white].
+adjective(adj(one))-->[one].
+adjective(adj(two))-->[two].
+adjective(adj(three))-->[three].
+adjective(adj(four))-->[four].
+adjective(adj(five))-->[five].
+adjective(adj(six))-->[six].
+adjective(adj(seven))-->[seven].
+adjective(adj(eight))-->[eight].
+adjective(adj(nine))-->[nine].
+adjective(adj(ten))-->[ten].
+
 
 %Adverbs
 adverb(adv(quickly))-->[quickly].
@@ -207,6 +249,12 @@ adverb(adv(faithfully))-->[faithfully].
 adverb(adv(carelessly))-->[carelessly].
 adverb(adv(secretly))-->[secretly].
 adverb(adv(often))-->[often].
+adverb(adv(too))-->[too].
+adverb(adv(only))-->[only].
+adverb(adv(there))-->[there].
+adverb(adv(most))-->[most].
+adverb(adv(more))-->[mpre].
+adverb(adv(really))-->[really].
 
 %Prepositions
 preposition(prep(after))-->[after].
@@ -223,6 +271,8 @@ preposition(prep(within))-->[within].
 preposition(prep(to))-->[to].
 
 %Determiner
+det(d(this))-->[this].
+det(d(that))-->[that].
 det(d(these))-->[these].
 det(d(those))-->[those].
 det(d(an))-->[an].
@@ -242,6 +292,7 @@ conjunction(conj(and))-->[and].
 conjunction(conj(while))-->[while].
 conjunction(conj(or))-->[or].
 conjunction(conj(but))-->[but].
+conjunction(conj(where))-->[where].
 
 %Pronouns
 pronoun(pron(he))-->[he].
@@ -251,14 +302,14 @@ pronoun(pron(me))-->[me].
 pronoun(pron(i))-->[i].
 pronoun(pron(us))-->[us].
 pronoun(pron(we))-->[we].
-pronoun(pron(who))-->[who].
-pronoun(pron(what))-->[what].
 
 interPronoun(pron(who))-->[who].
 interPronoun(pron(what))-->[what].
-interPronoun(pron(when))-->[when].
-interPronoun(pron(how))-->[how].
+interPronoun(pron(which))-->[which].
+interPronoun(pron(whose))-->[whose].
+interPronoun(pron(whom))-->[whom].
 
 %Punctuation
 punctuation(punc('.'))-->['.'].
 punctuation(punc('?'))-->['?'].
+punctuation(punc('!'))-->['!'].
