@@ -11,15 +11,9 @@
 
 5:	s(T, [who, climbed, the, big, tree], []).
 
-6:	s(T, [how, did, this, happen], []).
+6:	s(T, [what, did, the, professors, do], []).
 
-7:	s(T, [what, did, the, professors, do], []).
 
-8:	s(T, [when, and, how, did, this, happen], []).
-
-9:	s(T, [how, have, he, been], []).
-
-9:	s(T, [how, have, he, been, i, heard, the, young, boy, pushed, and, stored , a , big, box, in, the, large, empty, room, after, school], []).
 
 
 swipl -s assignment1.pl
@@ -236,6 +230,35 @@ adjective(adj(seven))-->[seven].
 adjective(adj(eight))-->[eight].
 adjective(adj(nine))-->[nine].
 adjective(adj(ten))-->[ten].
+adjective(adj(able))-->[able].
+adjective(adj(bad))-->[bad].
+adjective(adj(best))-->[best].
+adjective(adj(better))-->[better].
+adjective(adj(black))-->[black].
+adjective(adj(certain))-->[certain].
+adjective(adj(clear))-->[clear].
+adjective(adj(different))-->[different].
+adjective(adj(early))-->[early].
+adjective(adj(easy))-->[easy].
+adjective(adj(economic))-->[economic].
+adjective(adj(federal))-->[federal].
+adjective(adj(free))-->[free].
+adjective(adj(full))-->[full].
+adjective(adj(good))-->[good].
+adjective(adj(high))-->[high].
+adjective(adj(great))-->[great].
+adjective(adj(important))-->[important].
+adjective(adj(international))-->[international].
+adjective(adj(human))-->[human].
+adjective(adj(little))-->[little].
+adjective(adj(late))-->[late].
+adjective(adj(long))-->[long].
+adjective(adj(small))-->[small].
+adjective(adj(recent))-->[recent].
+adjective(adj(strong))-->[strong].
+adjective(adj(true))-->[true].
+adjective(adj(possible))-->[possible].
+adjective(adj(new))-->[new].
 
 
 %Adverbs
@@ -253,7 +276,7 @@ adverb(adv(too))-->[too].
 adverb(adv(only))-->[only].
 adverb(adv(there))-->[there].
 adverb(adv(most))-->[most].
-adverb(adv(more))-->[mpre].
+adverb(adv(more))-->[more].
 adverb(adv(really))-->[really].
 
 %Prepositions
@@ -278,7 +301,6 @@ det(d(those))-->[those].
 det(d(an))-->[an].
 det(d(other))-->[other].
 det(d(any))-->[any].
-det(d(that))-->[that].
 det(d(the))-->[the].
 det(d(a))-->[a].
 det(d(such))-->[such].
@@ -293,6 +315,10 @@ conjunction(conj(while))-->[while].
 conjunction(conj(or))-->[or].
 conjunction(conj(but))-->[but].
 conjunction(conj(where))-->[where].
+conjunction(conj(if))-->[if].
+conjunction(conj(when))-->[when].
+conjunction(conj(although))-->[although].
+conjunction(conj(except))-->[except].
 
 %Pronouns
 pronoun(pron(he))-->[he].
